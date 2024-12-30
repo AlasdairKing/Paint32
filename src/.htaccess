@@ -1,0 +1,70 @@
+# Alasdair's .htaccess file
+# Versions:
+#	30 May 2021 last edited in /alasdair
+#	10 July 2021 added ErrorDocument 404 default, works. 
+
+# This version is:
+#	/alasdair/paint32px
+
+
+# Provide a 404 error page, so the hosting company doesn't show some horrible page instead.
+# Must be absolute.
+# ErrorDocument 404 https://www.alasdairking.me.uk/404error.html
+# Or better return the default Apache page!
+ErrorDocument 404 default
+
+<ifModule mod_headers.c>
+Header always set X-Content-Type-Options "nosniff"
+</IfModule>
+
+<IfModule mod_headers.c>
+	FileETag None
+	Header unset ETag
+	Header unset Pragma
+	Header unset Cache-Control
+	#Header unset Last-Modified
+	
+	# default cache 1 year = 31556926 s
+	Header set Cache-Control "max-age=31556926, public, no-transform"
+	
+	<IfModule mod_alias.c>
+		<FilesMatch "\.(html?|json|rss|txt|xhtml|xml)$">
+			# cache markup for 1 second
+			Header set Cache-Control "max-age=1, public, no-transform"
+		</FilesMatch>
+		
+		<FilesMatch "\.(js|css)$">
+			# cache for 1 week = 604800 seconds
+			Header set Cache-Control "max-age=604800, public, no-transform"
+		</FilesMatch>
+		
+		<FilesMatch "\.(gif|jpe?g?|png|ico)$">
+			# cache image files for 1 month = 2629744 seconds
+			Header set Cache-Control "max-age=2629744, public, no-transform"
+		</FilesMatch>
+		
+		<FilesMatch "\.(doc|eot|flv|mp4|ogg|pdf|svg|swf|ttf|otf|woff)$">
+			# cache fonts and media files for 1 month = 2629744 seconds
+			Header set Cache-Control "max-age=2629744, public, no-transform, immutable"
+		</FilesMatch>
+	</IfModule>
+</IfModule>
+
+# Explicitly set returned files as UTF-8. 
+# https://www.w3.org/International/questions/qa-htaccess-charset.en
+AddCharset UTF-8 .html
+AddCharset UTF-8 .js
+AddCharset UTF-8 .css
+AddCharset UTF-8 .svg
+AddCharset UTF-8 .webmanifest
+
+# Tell Apache what a .webmanifest is and update icon format.
+# https://gist.github.com/themorgantown/4758846
+AddType application/manifest+json	webmanifest
+AddType image/x-icon cur ico
+
+# Make browsers use HTTPS not HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE] 
+

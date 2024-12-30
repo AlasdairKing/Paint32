@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en-gb"><!-- add lang to help Google translate -->
+
+	<head>
+		<!-- enable responsive/mobile support-->
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Save your files as UTF8, then you won't get weird characters -->
+		<meta charset="utf-8">
+
+		<title>Paint 32px</title>
+		<meta name="description" content="A simple web app that lets you create 32-pixel icons (PNG files)">
+		<meta name="keywords" content="paint, icon, 32-bit, drawing, web app" />
+		<meta name="author" content="Alasdair King" />
+
+		<!-- Favicon! -->
+		<link rel="Shortcut Icon" href="images/favicon.png" />
+
+		<!-- Social Media sharing content section, need to fill it all in and 
+		test it at https://developers.facebook.com/tools/debug	-->
+		<meta property="og:image" content="https://www.alasdairking.me.uk/paint32px/images/screenshot.png" />
+		<meta property="og:url" content="https://www.alasdairking.me.uk/paint32px/index.html" />
+		<meta property="og:type" content="website" />
+		<meta property="og:description" content="A simple web app that lets you create 32-pixel icons (PNG files)" />
+		<meta property="og:title" content="Paint 32px" />
+
+		<!-- PWA Manifest. Change v to get it to reload. -->
+		<link rel="manifest" href="manifest.webmanifest?v=2">
+		<!-- PWA Theme - Chrome only at the time of writing, 2021, so gets flagged for fixing. -->
+		<meta name="theme-color" content="#66CC00">
+		<!-- PWA for iOS -->
+		<!-- <link rel="apple-touch-icon" href="images/192.png"> -->
+
+
+
+		<!-- CSS -->
+
+		<!-- Option 1: Bootstrap. You just need the CSS for layout: you don't need the 
+	big JavaScript libraries unless you want to use their components and form elements. 
+		-->
+		<!-- If you want it, get it from their website at https://getbootstrap.com/ and download it and reference it here: -->
+		<!-- <link rel="stylesheet" href="bootstrap/4.4.1/css/bootstrap.min.css">-->
+
+		<!-- Option 2: some basic CSS to make it look less 1997. -->
+		<link rel="stylesheet" type="text/css" href="paint.css?v=11">
+
+		<!-- External JavaScript -->
+		<script src="paint.js"></script>
+	</head>
+
+	<body onload="LoadCanvas()">
+		<table id="canvas">
+
+
+		</table>
+		<div class="controls">
+			<input style="margin-top:0.5em" aria-label="Name" id="picturename" type="text" value="Sprite"
+				onkeyup="CheckPictureName(this)">
+			<input type="button" value="✳️ New" onclick="New()"> <input type="button" value="⬇️ Save" onclick="Save()"
+				id="savebutton">
+			<span id="paintcolor">&nbsp;</span>
+			<label><input type="radio" checked name="tool" id="paintbrushtool" onclick="Mode('paintbrush')">🖌️
+				Paintbrush</label>
+			<label><input type="radio" name="tool" onclick="Mode('fill')">🪣 Fill</label>
+			<label><input type="radio" name="tool" onclick="Mode('erase')">🗑️ Erase</label>
+			<label><input type="radio" name="tool" onclick="Mode('dropper')">💧 Dropper</label>
+			<table>
+				<tr>
+					<!-- see https://htmlcolorcodes.com/color-names/ -->
+					<!--<td style="background-color:LightCoral" onclick="SetColour(this)">&nbsp;</td>-->
+					<td style="background-color:Coral" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:Red" onclick="SetColour(this)">&nbsp;</td>
+					<!--<td style="background-color:DarkRed" onclick="SetColour(this)">&nbsp;</td>-->
+					<td style="background-color:IndianRed" onclick="SetColour(this)">&nbsp;</td>
+					<!--<td style="background-color:LightSalmon" onclick="SetColour(this)">&nbsp;</td>-->
+					<td style="background-color:Salmon" onclick="SetColour(this)">&nbsp;</td>
+					<!-- <td style="background-color:DarkSalmon" onclick="SetColour(this)">&nbsp;</td> -->
+					<td style="background-color:Crimson" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:FireBrick" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:LightPink" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:Pink" onclick="SetColour(this)">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="background-color:PaleVioletRed" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:HotPink" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:DeepPink" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:MediumVioletRed" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:Orange" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:DarkOrange" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:Tomato" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:OrangeRed" onclick="SetColour(this)">&nbsp;</td>
+				</tr>
+				<tr>
+					<!-- <td style="background-color:LightYellow" onclick="SetColour(this)">&nbsp;</td> -->
+					<td style="background-color:Yellow" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:Gold" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:LemonChiffon" onclick="SetColour(this)">&nbsp;</td>
+					<!-- <td style="background-color:LightGoldenRodYellow" onclick="SetColour(this)">&nbsp;</td> -->
+					<td style="background-color:PeachPuff" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:PapayaWhip" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:Moccasin" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:PaleGoldenRod" onclick="SetColour(this)">&nbsp;</td>
+					<!-- <td style="background-color:DarkKhaki" onclick="SetColour(this)">&nbsp;</td> -->
+					<td style="background-color:Khaki" onclick="SetColour(this)">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="background-color:Orchid" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:Lavender" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:Thistle" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:Violet" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:Plum" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:Magenta" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:Fuchsia" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:MediumOrchid" onclick="SetColour(this)">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="background-color:RebeccaPurple" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:MediumPurple" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:Purple" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:BlueViolet" onclick="SetColour(this)">&nbsp;</td>
+					<!-- <td style="background-color:DarkViolet" onclick="SetColour(this)">&nbsp;</td>
+<td style="background-color:DarkOrchid" onclick="SetColour(this)">&nbsp;</td>
+<td style="background-color:DarkMagenta" onclick="SetColour(this)">&nbsp;</td>
+ -->
+					<td style="background-color:Indigo" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:SlateBlue" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:DarkSlateBlue" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:MediumSlateBlue" onclick="SetColour(this)">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="background-color:GreenYellow" onclick="SetColour(this)">&nbsp;</td>
+					<!--<td style="background-color:Chartreuse" onclick="SetColour(this)">&nbsp;</td>-->
+					<td style="background-color:LawnGreen" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:Lime" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:LimeGreen" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:PaleGreen" onclick="SetColour(this)">&nbsp;</td>
+					<!-- <td style="background-color:LightGreen" onclick="SetColour(this)">&nbsp;</td> -->
+					<td style="background-color:Green" onclick="SetColour(this)">&nbsp;</td>
+					<!-- <td style="background-color:MediumSpringGreen" onclick="SetColour(this)">&nbsp;</td>
+<td style="background-color:SpringGreen" onclick="SetColour(this)">&nbsp;</td>
+ -->
+					<td style="background-color:MediumSeaGreen" onclick="SetColour(this)">&nbsp;</td>
+					<!-- <td style="background-color:SeaGreen" onclick="SetColour(this)">&nbsp;</td> -->
+					<td style="background-color:ForestGreen" onclick="SetColour(this)">&nbsp;</td>
+				</tr>
+				<tr>
+					<!-- <td style="background-color:DarkGreen" onclick="SetColour(this)">&nbsp;</td> -->
+					<td style="background-color:YellowGreen" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:OliveDrab" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:Olive" onclick="SetColour(this)">&nbsp;</td>
+					<!-- <td style="background-color:DarkOliveGreen" onclick="SetColour(this)">&nbsp;</td> -->
+					<td style="background-color:MediumAquaMarine" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:DarkSeaGreen" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:LightSeaGreen" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:DarkCyan" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:Teal" onclick="SetColour(this)">&nbsp;</td>
+				</tr>
+				<tr>
+					<!-- <td style="background-color:LightCyan" onclick="SetColour(this)">&nbsp;</td> -->
+					<td style="background-color:Cyan" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:Aqua" onclick="SetColour(this)">&nbsp;</td>
+					<!-- <td style="background-color:PaleTurquoise" onclick="SetColour(this)">&nbsp;</td> -->
+					<td style="background-color:Aquamarine" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:Turquoise" onclick="SetColour(this)">&nbsp;</td>
+					<!-- <td style="background-color:MediumTurquoise" onclick="SetColour(this)">&nbsp;</td>
+<td style="background-color:DarkTurquoise" onclick="SetColour(this)">&nbsp;</td> -->
+					<td style="background-color:CadetBlue" onclick="SetColour(this)">&nbsp;</td>
+					<!--<td style="background-color:SteelBlue" onclick="SetColour(this)">&nbsp;</td>
+<td style="background-color:LightSteelBlue" onclick="SetColour(this)">&nbsp;</td>-->
+					<td style="background-color:PowderBlue" onclick="SetColour(this)">&nbsp;</td>
+					<!-- <td style="background-color:LightBlue" onclick="SetColour(this)">&nbsp;</td>
+<td style="background-color:LightSkyBlue" onclick="SetColour(this)">&nbsp;</td>
+ -->
+					<td style="background-color:SkyBlue" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:DeepSkyBlue" onclick="SetColour(this)">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="background-color:DodgerBlue" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:CornflowerBlue" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:RoyalBlue" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:MediumBlue" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:Blue" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:DarkBlue" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:Navy" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:MidnightBlue" onclick="SetColour(this)">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="background-color:Cornsilk" onclick="SetColour(this)">&nbsp;</td>
+					<!-- <td style="background-color:BlanchedAlmond" onclick="SetColour(this)">&nbsp;</td>
+<td style="background-color:Bisque" onclick="SetColour(this)">&nbsp;</td>
+<td style="background-color:NavajoWhite" onclick="SetColour(this)">&nbsp;</td>
+<td style="background-color:Wheat" onclick="SetColour(this)">&nbsp;</td>
+<td style="background-color:BurlyWood" onclick="SetColour(this)">&nbsp;</td>-->
+					<td style="background-color:Tan" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:RosyBrown" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:SandyBrown" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:GoldenRod" onclick="SetColour(this)">&nbsp;</td>
+					<!--<td style="background-color:DarkGoldenRod" onclick="SetColour(this)">&nbsp;</td>
+<td style="background-color:Peru" onclick="SetColour(this)">&nbsp;</td>-->
+					<td style="background-color:Chocolate" onclick="SetColour(this)">&nbsp;</td>
+
+					<td style="background-color:SaddleBrown" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:Brown" onclick="SetColour(this)">&nbsp;</td>
+					<!--<td style="background-color:Sienna" onclick="SetColour(this)">&nbsp;</td>-->
+					<!--<td style="background-color:Maroon" onclick="SetColour(this)">&nbsp;</td>-->
+				</tr>
+				<tr>
+					<td style="background-color:Snow" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:HoneyDew" onclick="SetColour(this)">&nbsp;</td>
+					<!--<td style="background-color:MintCream" onclick="SetColour(this)">&nbsp;</td>-->
+					<!--<td style="background-color:Azure" onclick="SetColour(this)">&nbsp;</td>
+<td style="background-color:AliceBlue" onclick="SetColour(this)">&nbsp;</td>
+<td style="background-color:GhostWhite" onclick="SetColour(this)">&nbsp;</td>
+<td style="background-color:WhiteSmoke" onclick="SetColour(this)">&nbsp;</td>
+<td style="background-color:SeaShell" onclick="SetColour(this)">&nbsp;</td>
+<td style="background-color:Beige" onclick="SetColour(this)">&nbsp;</td>
+<td style="background-color:OldLace" onclick="SetColour(this)">&nbsp;</td>
+<td style="background-color:FloralWhite" onclick="SetColour(this)">&nbsp;</td>
+<td style="background-color:Ivory" onclick="SetColour(this)">&nbsp;</td>
+<td style="background-color:AntiqueWhite" onclick="SetColour(this)">&nbsp;</td>
+<td style="background-color:Linen" onclick="SetColour(this)">&nbsp;</td>
+<td style="background-color:LavenderBlush" onclick="SetColour(this)">&nbsp;</td>
+<td style="background-color:MistyRose" onclick="SetColour(this)">&nbsp;</td>-->
+
+					<td style="background-color:White" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:Black" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:Gray" onclick="SetColour(this)">&nbsp;</td>
+					<!-- <td style="background-color:Gainsboro" onclick="SetColour(this)">&nbsp;</td> -->
+					<!-- <td style="background-color:DimGray" onclick="SetColour(this)">&nbsp;</td> -->
+					<!-- <td style="background-color:LightGray" onclick="SetColour(this)">&nbsp;</td> -->
+					<!-- <td style="background-color:Silver" onclick="SetColour(this)">&nbsp;</td> -->
+					<td style="background-color:DarkGray" onclick="SetColour(this)">&nbsp;</td>
+					<!-- <td style="background-color:LightSlateGray" onclick="SetColour(this)">&nbsp;</td> -->
+					<td style="background-color:SlateGray" onclick="SetColour(this)">&nbsp;</td>
+					<td style="background-color:DarkSlateGray" onclick="SetColour(this)">&nbsp;</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>

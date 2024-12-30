@@ -1,0 +1,26 @@
+{
+  "short_name": "32px Paint",
+  "name": "32px Paint",
+  "icons": [
+    {
+      "src": "images/192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "images/512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "images/256.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "index.html",
+  "background_color": "#FFCC00",
+  "display": "standalone",
+  "theme_color": "#66CC00"
+}
