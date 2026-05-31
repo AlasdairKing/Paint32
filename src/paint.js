@@ -1,5 +1,7 @@
 "use strict";
 
+/* exported SetColour, New, Save, CheckPictureName */
+
 var brushColour = "black";
 
 const PAINT_MODE_PAINTBRUSH = "paintbrush";
