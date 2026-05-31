@@ -4,7 +4,17 @@
   "description": "A simple graphics program in HTML/JS",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "serve src -l 5173",
+    "dev": "npm start",
+    "lint": "npm run lint:js && npm run lint:css && npm run lint:html",
+    "lint:js": "eslint src/paint.js src/service-worker.js",
+    "lint:css": "stylelint \"src/**/*.css\"",
+    "lint:html": "htmlhint src/index.html",
+    "lint:fix": "npm run lint:js -- --fix && npm run lint:css -- --fix",
+    "format": "prettier --write src/",
+    "format:check": "prettier --check src/",
+    "check": "npm run lint && npm run format:check",
+    "test": "npm run check"
   },
   "author": "Alasdair King",
   "license": "ISC",
@@ -14,6 +24,7 @@
     "globals": "^15.14.0",
     "htmlhint": "^1.1.4",
     "prettier": "3.4.2",
+    "serve": "^14.2.4",
     "stylelint": "^16.12.0",
     "stylelint-config-standard": "^36.0.1"
   }

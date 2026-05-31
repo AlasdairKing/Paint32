@@ -4,7 +4,32 @@ A simple image creation tool for my children to use when they want to make graph
 
 You have very basic editing tools, and Save will give you a 32px-square PNG with transparency.
 
-Writting in Vanilla JavaScript in VS Code with Live Server. Linted by Stylelint, eslint, HTMLHint. Formatting by Prettier. 
+Writting in Vanilla JavaScript in VS Code with Live Server. Linted by Stylelint, eslint, HTMLHint. Formatting by Prettier.
+
+## Development
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the app (serves `src/` at http://localhost:5173):
+
+```bash
+npm start
+```
+
+Lint and format:
+
+| Command | Description |
+| --- | --- |
+| `npm run lint` | ESLint, Stylelint, and HTMLHint |
+| `npm run lint:fix` | Auto-fix JS and CSS where supported |
+| `npm run format` | Format sources with Prettier |
+| `npm run format:check` | Check Prettier formatting |
+| `npm run check` | Lint + format check (use before commit/CI) |
+| `npm test` | Same as `npm run check` |
 
 ## TODO 
 
