@@ -31,6 +31,23 @@ Lint and format:
 | `npm run check` | Lint + format check (use before commit/CI) |
 | `npm test` | Same as `npm run check` |
 
+## Hosting on GitHub Pages
+
+This repo can be served from GitHub so you get a stable URL to share (no private server required).
+
+**Live URL (after setup):** [https://alasdairking.github.io/Paint32/](https://alasdairking.github.io/Paint32/)
+
+### One-time setup in GitHub
+
+1. Open the repo on GitHub → **Settings** → **Pages**.
+2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
+3. Merge or push the deploy workflow (`.github/workflows/deploy-pages.yml`) to `main`.
+4. After the **Deploy to GitHub Pages** workflow finishes, the site is live at the URL above.
+
+Each push to `main` redeploys automatically. The workflow uploads the `src/` folder as-is (same files you serve locally with `npm start`).
+
+To use your own domain instead of `*.github.io`, add it under **Settings → Pages → Custom domain** (optional).
+
 ## TODO 
 
 - Visually display the pixels that are transparent, with the grey checkerboard common to graphics programs.

@@ -11,7 +11,8 @@
 | Service | Required? | Notes |
 |---------|-----------|--------|
 | Static HTTP server on `src/` | **Yes** | Do not open `index.html` via `file://`; Save/download needs HTTP. |
-| Apache `.htaccess` | No | Production-only (`src/.htaccess`). |
+| Apache `.htaccess` | No | Private-hosting only (`src/.htaccess`); ignored on GitHub Pages. |
+| GitHub Pages | Optional | Deploy workflow publishes `src/`; see `readme.md`. |
 | Service worker | No | `src/service-worker.js` exists but is not registered in the app. |
 
 ### Dependency refresh
